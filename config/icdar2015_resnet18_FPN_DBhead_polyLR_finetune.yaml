@@ -1,5 +1,5 @@
 name: DBNet
-base: ['config/icdar2015.yaml']
+base: ['/Users/xintao/Documents/GitHub/DBNet.pytorch/config/icdar2015.yaml']
 arch:
   type: Model
   backbone:

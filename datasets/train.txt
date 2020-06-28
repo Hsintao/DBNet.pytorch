@@ -1,2 +1,1 @@
-./datasets/train/img/001.jpg	./datasets/train/gt/001.txt
-./datasets/train/img/002.jpg	./datasets/train/gt/002.txt
+/Users/xintao/Documents/GitHub/DBNet.pytorch/dataset/train/img/img_1.jpg	/Users/xintao/Documents/GitHub/DBNet.pytorch/dataset/train/label/gt_1.txt

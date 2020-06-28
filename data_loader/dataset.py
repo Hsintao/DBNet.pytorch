@@ -143,24 +143,29 @@ if __name__ == '__main__':
 
     from utils import parse_config, show_img, plt, draw_bbox
 
-    config = anyconfig.load('config/icdar2015_resnet18_FPN_DBhead_polyLR.yaml')
+    config = anyconfig.load('/Users/xintao/Documents/GitHub/DBNet.pytorch/config/icdar2015_dcn_resnet18_FPN_DBhead_polyLR.yaml')
     config = parse_config(config)
     dataset_args = config['dataset']['train']['dataset']['args']
     # dataset_args.pop('data_path')
-    # data_list = [(r'E:/zj/dataset/icdar2015/train/img/img_15.jpg', 'E:/zj/dataset/icdar2015/train/gt/gt_img_15.txt')]
+    data_list = [('/Users/xintao/Documents/GitHub/DBNet.pytorch/dataset/train/img/img_1.jpg', \
+                  '/Users/xintao/Documents/GitHub/DBNet.pytorch/dataset/train/label/gt_1.txt')]
     train_data = ICDAR2015Dataset(data_path=dataset_args.pop('data_path'), transform=transforms.ToTensor(),
                                   **dataset_args)
     train_loader = DataLoader(dataset=train_data, batch_size=1, shuffle=True, num_workers=0)
     for i, data in enumerate(tqdm(train_loader)):
-        # img = data['img']
-        # shrink_label = data['shrink_map']
-        # threshold_label = data['threshold_map']
-        #
-        # print(threshold_label.shape, threshold_label.shape, img.shape)
+        img = data['img']
+        shrink_label = data['shrink_map']
+        threshold_label = data['threshold_map']
+
+        print(threshold_label.shape, shrink_label[0].shape, img.shape)
+        cv2.imwrite('img.jpg', (img[0].numpy().transpose(1, 2, 0) * 255).astype(np.uint8))
+        cv2.imwrite('shrink_label.jpg', (shrink_label[0].numpy() * 255).astype(np.uint8))
+        cv2.imwrite('threshold_label.jpg', (threshold_label[0].numpy() * 255).astype(np.uint8))
+        # plt.imshow(img[0].numpy().transpose(1, 2, 0));
         # show_img(img[0].numpy().transpose(1, 2, 0), title='img')
         # show_img((shrink_label[0].to(torch.float)).numpy(), title='shrink_label')
         # show_img((threshold_label[0].to(torch.float)).numpy(), title='threshold_label')
-        # img = draw_bbox(img[0].numpy().transpose(1, 2, 0),np.array(data['text_polys']))
+        # img = draw_bbox(img[0].numpy().transpose(1, 2, 0), np.array(data['text_polys']))
         # show_img(img, title='draw_bbox')
         # plt.show()
-        pass
+        break
